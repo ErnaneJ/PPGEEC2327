@@ -1,0 +1,529 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>NNode_html</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-05"><meta name="DC.source" content="NNode_html.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Simple Neural Network LAB</a></li><li><a href="#2">================= Set up input =================</a></li><li><a href="#3">================= Set up parameters for NN structure=================--------------------------------------------------------------------------------</a></li><li><a href="#4">================ Initializing Pameters for Training ================</a></li><li><a href="#5">=================== Training NN ===================</a></li><li><a href="#6">================= Implement Predict =================</a></li><li><a href="#7">================= gradientnn.m (for display) =================</a></li><li><a href="#9">Setup some useful variables</a></li><li><a href="#10">Part 1: Feedforward the neural network and return the cost in the variable res.</a></li><li><a href="#11">Part 2: Implement the backpropagation algorithm to compute the gradients.</a></li><li><a href="#13">================= misfit.m (for display) =================</a></li><li><a href="#14">================= activation.m (for display) =================</a></li></ul></div><h2 id="1">Simple Neural Network LAB</h2><p>Learn how to to do forward and backward propogation according to chsingle.pdf by Gerard Schuster coded by Zongcai Feng and Gerard Schuster</p><pre class="codeinput"><span class="comment">% This is the main program to run Neural Network</span>
+<span class="comment">% It involves function</span>
+<span class="comment">%  gradientnn.m - Neural network cost function and gradient calculation</span>
+<span class="comment">%  misfit.m - Objective function and gradient with repected to predicted output</span>
+<span class="comment">%              (currently have likelihood and L2)</span>
+<span class="comment">%  activation.m - activation function and gradient with repected to Z (currently use sigmoid and ReLU)</span>
+<span class="comment">%  Displaynn.m - predict the output and plot</span>
+</pre><h2 id="2">================= Set up input =================</h2><pre class="codeinput">clear ; close <span class="string">all</span>; clc
+
+<span class="comment">% x(N,M)  - input- M input feature vectors with size Nx1</span>
+M=100;  <span class="comment">% # of equations constraint</span>
+N=5;    <span class="comment">% # of unknowns (w0, w1, wN-1)</span>
+x=zeros(N,M);
+
+<span class="keyword">for</span> i=1:M
+    x(:,i)=round(rand(N,1));
+<span class="keyword">end</span>
+<span class="comment">% ---- to balance the number of 0 examples and 1 exmaples -----</span>
+is0_token=0;
+<span class="keyword">for</span> i=1:M
+    <span class="keyword">if</span> sum(x(:,i))==0
+        is0_token=is0_token+1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+x=[zeros(N,M-is0_token),x];
+M=size(x,2);
+rank = randperm(M);
+x=x(:,rank);
+<span class="comment">% ----------------giving labels-----------------------------------------------</span>
+t=zeros(M,1);tp=t;
+<span class="keyword">for</span> i=1:M
+    <span class="keyword">if</span> sum(x(:,i))==0
+        t(i)=1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Randomly select 100 data points to display</span>
+sel = randperm(M);
+sel = sel(1:100);
+displayData(x(:, sel)',N);
+</pre><img vspace="5" hspace="5" src="NNode_html_01.png" alt=""> <h2 id="3">================= Set up parameters for NN structure=================--------------------------------------------------------------------------------</h2><pre class="codeinput">display(<span class="string">'-----------------------------------------------------------Instruction of NN structure---------------------------------------------------------------------------------------'</span>);
+display(<span class="string">'The NN code requires the input the number of nodes in each layer.'</span>);
+display(<span class="string">'(The layers defines in this NN structure do not include the layers for input feathuires but include the layers for output labels)'</span>);
+display(<span class="string">'(E.g:[15,10,5,1], three hidden layers and their nodes numbers are 15,10,5, respectively, 1 is the ouptlayer, consistent with variable)'</span>);
+display(<span class="string">'-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- '</span>);
+<span class="comment">%layer_temp=input('Please input the number of nodes in each layer:  ');</span>
+layer_temp=[15,10,5,1];
+display(<span class="string">' '</span>);
+<span class="comment">%obj_option=input('Please input the objective function type, 1 for L2 norm, 2 for likelihood:   ');</span>
+obj_option=2;
+display(<span class="string">' '</span>);
+<span class="comment">%act_option=input('Please input the active function type, 1 for sigmoid norm, 2 for ReLU:   ');</span>
+act_option=2;
+
+layer_size=[N,layer_temp]; <span class="comment">% layer_size include the input and output layer</span>
+layer_num=numel(layer_size); <span class="comment">%layer number include the input and output</span>
+</pre><pre class="codeoutput">-----------------------------------------------------------Instruction of NN structure---------------------------------------------------------------------------------------
+The NN code requires the input the number of nodes in each layer.
+(The layers defines in this NN structure do not include the layers for input feathuires but include the layers for output labels)
+(E.g:[15,10,5,1], three hidden layers and their nodes numbers are 15,10,5, respectively, 1 is the ouptlayer, consistent with variable)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+ 
+ 
+</pre><h2 id="4">================ Initializing Pameters for Training ================</h2><pre>initialize the weights of the neural network with random number</pre><pre class="codeinput"><span class="keyword">for</span> ilayer=1:layer_num-1
+    ww{ilayer}=rand(layer_size(ilayer+1),layer_size(ilayer)+1)*0.1;
+<span class="keyword">end</span>
+alpha=1;         <span class="comment">% step size</span>
+nit=300;    <span class="comment">% total interation</span>
+res=zeros(nit,1);  <span class="comment">%used to record the objetive function value in every iterations</span>
+kk=0;
+lambda = 0.0; <span class="comment">%for regularization, if add regularization, suggest lambda&lt;0.01</span>
+</pre><h2 id="5">=================== Training NN ===================</h2><pre>To train your neural network, we will now use steepest decent and line search</pre><pre class="codeinput">fprintf(<span class="string">'\nTraining Neural Network... \n'</span>)
+
+<span class="keyword">for</span> k=2:nit     <span class="comment">% Looping over iterations</span>
+    alpha=1;
+    <span class="comment">%gradientnn ouput: grad is the gradient and res(k) is the objetive function value</span>
+    [grad,res(k)]=gradientnn(M,x,t',ww,layer_size,obj_option,act_option,lambda);
+    <span class="comment">%update the weights</span>
+    <span class="keyword">for</span> ilayer=1:layer_num-1
+        ww{ilayer}=ww{ilayer}-alpha*grad{ilayer};
+    <span class="keyword">end</span>
+    <span class="comment">%---------------line search-----------------------------------------------------------</span>
+    [~,res1]=gradientnn(M,x,t',ww,layer_size,obj_option,act_option,lambda);
+    <span class="keyword">while</span> (res1&gt;res(k)) &amp;&amp; (alpha&gt;0.00001)
+        alpha=alpha*0.5;
+        <span class="keyword">for</span> ilayer=1:layer_num-1
+            ww{ilayer}=ww{ilayer}-alpha*grad{ilayer};
+        <span class="keyword">end</span>
+        [~,res1]=gradientnn(M,x,t',ww,layer_size,obj_option,act_option,lambda);
+    <span class="keyword">end</span>
+    <span class="comment">%-------------------------------------------------------------------------------</span>
+    <span class="comment">%kk=kk+1</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+Training Neural Network... 
+</pre><h2 id="6">================= Implement Predict =================</h2><pre>After training the neural network, you will now implement the "Displaynn" function to use the
+neural network to predict the labels of the training set.</pre><pre class="codeinput">figure(4);Displaynn(M,res,nit,ww,layer_size,x,t,act_option);pause(0.5)
+</pre><img vspace="5" hspace="5" src="NNode_html_02.png" alt=""> <h2 id="7">================= gradientnn.m (for display) =================</h2><pre class="codeinput"><span class="keyword">function</span> [grad,res]=gradientnn(M,x,t,ww,layer_size,obj_option,act_option, lambda);
+</pre><pre class="codeinput"><span class="comment">% output:</span>
+<span class="comment">%  res - objective function value</span>
+<span class="comment">%  grad - (objective function respective to weights)</span>
+<span class="comment">%</span>
+<span class="comment">% Input:</span>
+<span class="comment">% M   - # data examples</span>
+<span class="comment">%(x,t)- Training data pairs</span>
+<span class="comment">%ww- filter for all layers</span>
+<span class="comment">% t   - # observed data</span>
+<span class="comment">% layer_size - indicate nn structure</span>
+<span class="comment">%obj_option=1 for L2, 2 for likelihood</span>
+<span class="comment">%act_option=1 for sigmoid, 2 for ReLU</span>
+
+<span class="comment">% Part 1: Feedforward the neural network and return the cost in the</span>
+<span class="comment">%         variable res.</span>
+<span class="comment">%</span>
+<span class="comment">% Part 2: Implement the backpropagation algorithm to compute the gradients.</span>
+<span class="comment">%         You should return the partial derivatives of the cost function with</span>
+<span class="comment">%         respect weight, respectively. After implementing Part 2, you can check</span>
+<span class="comment">%         that your implementation is correct by running checkNNGradients</span>
+<span class="comment">%</span>
+<span class="comment">%         Note: The vector y passed into the function is a vector of labels</span>
+<span class="comment">%               containing values from 1..K.</span>
+</pre><h2 id="9">Setup some useful variables</h2><pre class="codeinput">layer_num=numel(layer_size); <span class="comment">%layer number include the input and output</span>
+aa{1}=x; <span class="comment">%first layer is the input layer</span>
+penalize=0;
+</pre><h2 id="10">Part 1: Feedforward the neural network and return the cost in the variable res.</h2><pre class="codeinput"><span class="comment">% Do forward propagation</span>
+<span class="keyword">for</span> iter =1:layer_num-1 <span class="comment">%%%----- N (in book) ------%%%</span>
+    <span class="comment">% ones(1, m) is for bias</span>
+    aa{iter} = [ones(1, M); aa{iter}];
+    <span class="comment">%%%----- z[n]=W[n]a[n-1]  ------%%%</span>
+    zz{iter}=ww{iter}*aa{iter};
+    <span class="comment">%%%----- a[n]=g(z[n])------%%%</span>
+    <span class="keyword">if</span> iter ==layer_num-1 <span class="comment">%output layer has to use sigmoid</span>
+        [aa{iter+1},~] = activation(zz{iter},1);
+    <span class="keyword">else</span>
+        [aa{iter+1},~] = activation(zz{iter},act_option);
+    <span class="keyword">end</span>
+    <span class="comment">%Add some regularization</span>
+    penalize =penalize+ sum(sum(ww{iter}.^ 2)); <span class="comment">% include regularization for bias</span>
+<span class="keyword">end</span>
+<span class="comment">% final output for forward propagation Ypred</span>
+t_pred = aa{layer_num};
+
+<span class="comment">% calculate the objective function and the dirivative of objective function with respect to t_pred using likelihood or L2 type</span>
+<span class="comment">%obj_option=1 for L2, 2 for likelihood</span>
+[res,in]= misfit( t_pred,t,1/M,obj_option);
+
+<span class="comment">% add regularization</span>
+res = res + (lambda/(2*M)) * penalize;
+</pre><h2 id="11">Part 2: Implement the backpropagation algorithm to compute the gradients.</h2><pre>writen according to Backpropagation Operation</pre><pre class="codeinput"><span class="comment">% Implement backpropagation</span>
+<span class="keyword">for</span> iter=layer_num-1:-1:1
+    <span class="comment">%'sigmoidgrad' means compute the gradient of the sigmoid function</span>
+    <span class="keyword">if</span> iter ==layer_num-1 <span class="comment">%output layer has to use sigmoid</span>
+        [~,dg]=activation(zz{iter},1);
+    <span class="keyword">else</span>
+        [~,dg]=activation(zz{iter},act_option);  <span class="comment">%%%----- in=dg[i].*in (in book) ------%%%</span>
+    <span class="keyword">end</span>
+    in=dg.*in;
+    <span class="comment">% in is the backward field, A is the forward field</span>
+    grad{iter}=in*aa{iter}'+ (lambda/M) * ww{iter}; <span class="comment">%%%----- de(j,k)=in*(a[i-2])T (in book) ------%%%</span>
+    <span class="comment">% update in for calculation of the gradient with respect to next weights</span>
+    in=ww{iter}'*in;  <span class="comment">%%%----- in=W'[i]*in (in book) ------%%%</span>
+    in = in(2:end, :);
+<span class="keyword">end</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><h2 id="13">================= misfit.m (for display) =================</h2><p>objective function</p><pre class="codeinput"><span class="keyword">function</span> [ J,in ] = misfit( Y_pred,Y_obs,scale,type)
+<span class="comment">%misfit function</span>
+<span class="comment">%</span>
+<span class="comment">%input:</span>
+<span class="comment">%Y_pred: predicted value</span>
+<span class="comment">%Y_obs: observed vakue</span>
+<span class="comment">%scale: scale the misift</span>
+<span class="comment">%type: objetive function type: 1 for L2, 2 for likelihood</span>
+<span class="comment">%</span>
+<span class="comment">%e.g: J=0.5*scale*||Y_pred-Y_obs)||2</span>
+<span class="comment">%output:</span>
+<span class="comment">% J is the value of the objective function</span>
+<span class="comment">% in is the gradient of J with respective to Y_pred</span>
+
+<span class="keyword">if</span> type==1 <span class="comment">% for L2 norm objective function</span>
+    <span class="comment">%J = sum( sum( (Y_pred-Y_obs).^2 ) );</span>
+    J = sqrt(sum( sum( (Y_pred-Y_obs).^2 ) ));  <span class="comment">%adjust from Jerry</span>
+    in = 2*(Y_pred-Y_obs);
+<span class="keyword">elseif</span> type==2 <span class="comment">% for likelihood  objective function</span>
+    J = sum(sum(-Y_obs.*log(Y_pred) - (1-Y_obs).*log(1-Y_pred)));
+    in = -Y_obs./Y_pred + (1-Y_obs)./(1-Y_pred);  <span class="comment">% dJ / d Y_pred</span>
+<span class="keyword">else</span>
+    display(<span class="string">'You entered the wrong type for the misfit function'</span>);
+    stop
+<span class="keyword">end</span>
+
+J=J*scale;in=in*scale;
+
+<span class="keyword">end</span>
+</pre><h2 id="14">================= activation.m (for display) =================</h2><p>activation function</p><pre class="codeinput"><span class="keyword">function</span> [ g,dg ] = activation( z,type )
+<span class="comment">%activation function</span>
+<span class="comment">%</span>
+<span class="comment">%input:</span>
+<span class="comment">%z: input for atviation function</span>
+<span class="comment">%type: objetive function type: 1 for sigmoid, 2 for ReLU</span>
+<span class="comment">%</span>
+<span class="comment">%output:</span>
+<span class="comment">% g is the value of the activation function</span>
+<span class="comment">% dg is the gradient of g with respective to z</span>
+
+<span class="keyword">if</span> type==1 <span class="comment">% for sigmoid</span>
+    g = 1.0 ./ (1.0 + exp(-z));
+    dg = g .* (1 - g); <span class="comment">%Compute the gradient of the sigmoid function</span>
+<span class="keyword">elseif</span> type==2 <span class="comment">% for ReLU</span>
+    g=z*0.0; dg=z*0.0;
+    g(z&gt;0)=z(z&gt;0);
+    g(z&lt;=0)=z(z&lt;=0)*0.0;
+    dg(z&gt;0)=1.0;
+    dg(z&lt;=0)=0.0;
+<span class="keyword">else</span>
+    display(<span class="string">'You entered the wrong type for the activation function'</span>);
+    stop
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Simple Neural Network LAB 
+% Learn how to to do forward and backward propogation according to chsingle.pdf by Gerard Schuster
+% coded by Zongcai Feng and Gerard Schuster
+
+% This is the main program to run Neural Network
+% It involves function
+%  gradientnn.m - Neural network cost function and gradient calculation
+%  misfit.m - Objective function and gradient with repected to predicted output
+%              (currently have likelihood and L2)
+%  activation.m - activation function and gradient with repected to Z (currently use sigmoid and ReLU)
+%  Displaynn.m - predict the output and plot
+
+%% ================= Set up input =================
+clear ; close all; clc
+
+% x(N,M)  - input- M input feature vectors with size Nx1
+M=100;  % # of equations constraint
+N=5;    % # of unknowns (w0, w1, wN-1)
+x=zeros(N,M);
+
+for i=1:M
+    x(:,i)=round(rand(N,1));
+end
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH to balance the number of 0 examples and 1 exmaples REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+is0_token=0;
+for i=1:M
+    if sum(x(:,i))==0
+        is0_token=is0_token+1;
+    end
+end
+x=[zeros(N,M-is0_token),x];
+M=size(x,2);
+rank = randperm(M);
+x=x(:,rank);
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHgiving labelsREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+t=zeros(M,1);tp=t;
+for i=1:M
+    if sum(x(:,i))==0
+        t(i)=1;
+    end
+end
+
+% Randomly select 100 data points to display
+sel = randperm(M);
+sel = sel(1:100);
+displayData(x(:, sel)',N);
+%% ================= Set up parameters for NN structure=================REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+display('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-Instruction of NN structureREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-');
+display('The NN code requires the input the number of nodes in each layer.');
+display('(The layers defines in this NN structure do not include the layers for input feathuires but include the layers for output labels)');
+display('(E.g:[15,10,5,1], three hidden layers and their nodes numbers are 15,10,5, respectively, 1 is the ouptlayer, consistent with variable)');
+display('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH ');
+%layer_temp=input('Please input the number of nodes in each layer:  ');
+layer_temp=[15,10,5,1];
+display(' ');
+%obj_option=input('Please input the objective function type, 1 for L2 norm, 2 for likelihood:   ');
+obj_option=2;
+display(' ');
+%act_option=input('Please input the active function type, 1 for sigmoid norm, 2 for ReLU:   ');
+act_option=2;
+
+layer_size=[N,layer_temp]; % layer_size include the input and output layer
+layer_num=numel(layer_size); %layer number include the input and output
+%% ================ Initializing Pameters for Training ================
+%  initialize the weights of the neural network with random number
+for ilayer=1:layer_num-1
+    ww{ilayer}=rand(layer_size(ilayer+1),layer_size(ilayer)+1)*0.1;
+end
+alpha=1;         % step size
+nit=300;    % total interation
+res=zeros(nit,1);  %used to record the objetive function value in every iterations
+kk=0;
+lambda = 0.0; %for regularization, if add regularization, suggest lambda<0.01
+%% =================== Training NN ===================
+%  To train your neural network, we will now use steepest decent and line search
+fprintf('\nTraining Neural Network... \n')
+
+for k=2:nit     % Looping over iterations
+    alpha=1;  
+    %gradientnn ouput: grad is the gradient and res(k) is the objetive function value
+    [grad,res(k)]=gradientnn(M,x,t',ww,layer_size,obj_option,act_option,lambda);
+    %update the weights
+    for ilayer=1:layer_num-1
+        ww{ilayer}=ww{ilayer}-alpha*grad{ilayer};
+    end
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-line searchREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    [~,res1]=gradientnn(M,x,t',ww,layer_size,obj_option,act_option,lambda);
+    while (res1>res(k)) && (alpha>0.00001)
+        alpha=alpha*0.5;
+        for ilayer=1:layer_num-1
+            ww{ilayer}=ww{ilayer}-alpha*grad{ilayer};
+        end
+        [~,res1]=gradientnn(M,x,t',ww,layer_size,obj_option,act_option,lambda);
+    end
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    %kk=kk+1
+end
+%% ================= Implement Predict =================
+%  After training the neural network, you will now implement the "Displaynn" function to use the
+%  neural network to predict the labels of the training set.
+figure(4);Displaynn(M,res,nit,ww,layer_size,x,t,act_option);pause(0.5)
+
+%% ================= gradientnn.m (for display) =================
+function [grad,res]=gradientnn(M,x,t,ww,layer_size,obj_option,act_option, lambda);
+% output:
+%  res - objective function value
+%  grad - (objective function respective to weights)
+%
+% Input:
+% M   - # data examples
+%(x,t)- Training data pairs
+%ww- filter for all layers
+% t   - # observed data
+% layer_size - indicate nn structure
+%obj_option=1 for L2, 2 for likelihood
+%act_option=1 for sigmoid, 2 for ReLU
+
+% Part 1: Feedforward the neural network and return the cost in the
+%         variable res.
+%
+% Part 2: Implement the backpropagation algorithm to compute the gradients.
+%         You should return the partial derivatives of the cost function with
+%         respect weight, respectively. After implementing Part 2, you can check
+%         that your implementation is correct by running checkNNGradients
+%
+%         Note: The vector y passed into the function is a vector of labels
+%               containing values from 1..K.
+
+%% Setup some useful variables
+layer_num=numel(layer_size); %layer number include the input and output
+aa{1}=x; %first layer is the input layer
+penalize=0;
+%% Part 1: Feedforward the neural network and return the cost in the variable res.
+
+% Do forward propagation
+for iter =1:layer_num-1 %%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- N (in book) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%%
+    % ones(1, m) is for bias
+    aa{iter} = [ones(1, M); aa{iter}];
+    %%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- z[n]=W[n]a[n-1]  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%%
+    zz{iter}=ww{iter}*aa{iter};
+    %%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- a[n]=g(z[n])REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%%
+    if iter ==layer_num-1 %output layer has to use sigmoid
+        [aa{iter+1},~] = activation(zz{iter},1);
+    else
+        [aa{iter+1},~] = activation(zz{iter},act_option);
+    end
+    %Add some regularization
+    penalize =penalize+ sum(sum(ww{iter}.^ 2)); % include regularization for bias
+end
+% final output for forward propagation Ypred
+t_pred = aa{layer_num};
+
+% calculate the objective function and the dirivative of objective function with respect to t_pred using likelihood or L2 type
+%obj_option=1 for L2, 2 for likelihood
+[res,in]= misfit( t_pred,t,1/M,obj_option);
+
+% add regularization
+res = res + (lambda/(2*M)) * penalize; 
+%% Part 2: Implement the backpropagation algorithm to compute the gradients.
+%  writen according to Backpropagation Operation 
+
+% Implement backpropagation
+for iter=layer_num-1:-1:1
+    %'sigmoidgrad' means compute the gradient of the sigmoid function
+    if iter ==layer_num-1 %output layer has to use sigmoid
+        [~,dg]=activation(zz{iter},1);
+    else
+        [~,dg]=activation(zz{iter},act_option);  %%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- in=dg[i].*in (in book) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%%
+    end
+    in=dg.*in;
+    % in is the backward field, A is the forward field
+    grad{iter}=in*aa{iter}'+ (lambda/M) * ww{iter}; %%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- de(j,k)=in*(a[i-2])T (in book) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%%
+    % update in for calculation of the gradient with respect to next weights
+    in=ww{iter}'*in;  %%%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH- in=W'[i]*in (in book) REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH%%%
+    in = in(2:end, :);
+end
+
+end
+
+%% ================= misfit.m (for display) =================
+% objective function
+function [ J,in ] = misfit( Y_pred,Y_obs,scale,type)
+%misfit function
+%
+%input:
+%Y_pred: predicted value
+%Y_obs: observed vakue
+%scale: scale the misift
+%type: objetive function type: 1 for L2, 2 for likelihood
+%
+%e.g: J=0.5*scale*||Y_pred-Y_obs)||2
+%output:
+% J is the value of the objective function
+% in is the gradient of J with respective to Y_pred
+
+if type==1 % for L2 norm objective function
+    %J = sum( sum( (Y_pred-Y_obs).^2 ) );
+    J = sqrt(sum( sum( (Y_pred-Y_obs).^2 ) ));  %adjust from Jerry
+    in = 2*(Y_pred-Y_obs);
+elseif type==2 % for likelihood  objective function
+    J = sum(sum(-Y_obs.*log(Y_pred) - (1-Y_obs).*log(1-Y_pred)));
+    in = -Y_obs./Y_pred + (1-Y_obs)./(1-Y_pred);  % dJ / d Y_pred
+else
+    display('You entered the wrong type for the misfit function');
+    stop
+end
+
+J=J*scale;in=in*scale;
+
+end
+
+%% ================= activation.m (for display) =================
+% activation function
+function [ g,dg ] = activation( z,type )
+%activation function
+%
+%input:
+%z: input for atviation function
+%type: objetive function type: 1 for sigmoid, 2 for ReLU
+%
+%output:
+% g is the value of the activation function
+% dg is the gradient of g with respective to z
+
+if type==1 % for sigmoid
+    g = 1.0 ./ (1.0 + exp(-z));
+    dg = g .* (1 - g); %Compute the gradient of the sigmoid function
+elseif type==2 % for ReLU
+    g=z*0.0; dg=z*0.0;
+    g(z>0)=z(z>0);
+    g(z<=0)=z(z<=0)*0.0;
+    dg(z>0)=1.0;
+    dg(z<=0)=0.0;
+else
+    display('You entered the wrong type for the activation function');
+    stop
+end
+end
+
+##### SOURCE END #####
+--></body></html>
