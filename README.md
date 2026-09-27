@@ -6,8 +6,8 @@ in Geoscience*, SEG.
 
 ## Structure
 
-- `materials/` — course PDFs (chapters, syllabus, bibliography).
-- `exercises/NN/` — one folder per exercise, each with `announced.md` (the assignment
+- `materials/`: course PDFs (chapters, syllabus, bibliography).
+- `exercises/NN/`: one folder per exercise, each with `announced.md` (the assignment
   as given by the professor) and the delivered solution.
 
 ## Exercises
