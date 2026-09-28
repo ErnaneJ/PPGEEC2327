@@ -4,12 +4,6 @@ Coursework for PPGEEC2327, Special Topics in Intelligent Information Processing 
 applied to Geophysics), UFRN. Textbook: Schuster, G. (2024), *Machine Learning Methods
 in Geoscience*, SEG.
 
-## Structure
-
-- `materials/`: course PDFs (chapters, syllabus, bibliography).
-- `exercises/`: one numbered folder per exercise, each with `announced.md` (the
-  assignment as given by the professor) and the delivered solution.
-
 ## Exercises
 
 | # | Topic | Status |
