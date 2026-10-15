@@ -5,6 +5,6 @@ Using the lab available at the link (https://utam.gg.utah.edu/Classes/ML/LAB1/Ch
 - Compare migration noise filtering using FCNN and SVM with RBF kernel.
 - Submit the results with proper analysis in a notebook (Python or MATLAB).
 
-File sent by the professor: exercises/03/materials/SVM_FCNN_lab
+Lab page and code (the assignment link was unreachable, materials obtained from a mirror): exercises/03/materials/SVM_FCNN_lab
 
 Starts on 2026-09-17 at 00:00 and ends on 2026-10-15 at 23:59
