@@ -6,7 +6,7 @@ Binary classification - Run the MATLAB code NNode1.m (attached) to obtain result
 - Multiclass classification - Run the code NNode_multiclass.m (to be attached) to obtain results similar to Example 4.4.2.
 - Submit everything as a notebook (Python or MATLAB) with a discussion of the results.
 - Exercise described in section 4.8 of the book.
-- Lab description link: Lab NN (https://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.FCN/Chapter.MultiGNN/lab.html)
+- Lab description link: Lab NN (http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.FCN/Chapter.MultiGNN/lab.html) (the link returns a TLS certificate error over HTTPS but is reachable over plain HTTP)
 
 File sent by the professor: exercises/02/materials/NN_ErSE294
 

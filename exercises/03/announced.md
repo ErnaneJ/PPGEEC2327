@@ -1,6 +1,6 @@
 Exercise 3 - Chapters 7 and 5
 
-Using the lab available at the link (https://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/lab.html):
+Using the lab available at the link (http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/lab.html):
 
 - Compare migration noise filtering using FCNN and SVM with RBF kernel.
 - Submit the results with proper analysis in a notebook (Python or MATLAB).
