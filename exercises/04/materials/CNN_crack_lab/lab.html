@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0082)http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.CNN/Chapter.CNNCrack/lab.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Identifying Rock Crack by Convolutional Neural Network</title> 
+ 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="CNN_lab.tex"> 
+<meta name="date" content="2018-10-30 14:45:00"> 
+<link rel="stylesheet" type="text/css" href="./Identifying Rock Crack by Convolutional Neural Network_files/CNN_lab.css"> 
+</head><body>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">Identifying Rock Crack by Convolutional Neural
+Network</h2>
+<div class="author"></div><br>
+<div class="date"><span class="ecrm-1200">October 30, 2018</span></div>
+   </div>
+<div class="center">
+<!--l. 20--><p class="noindent">
+<!--l. 21--></p><p class="noindent">by Shihang Feng
+</p></div>
+<div class="center">
+<!--l. 24--><p class="noindent">
+<!--l. 25--></p><p class="noindent"><img src="./Identifying Rock Crack by Convolutional Neural Network_files/2_Users_fengshihang_Downloads_ppps_html_CNN_label.png" alt="PIC">
+</p></div>
+<div class="center">
+<!--l. 28--><p class="noindent">
+<!--l. 29--></p><p class="noindent">Figure 1: (a) Input image, (b) classication results of all imaging points in the
+input image.
+</p></div>
+<!--l. 34--><p class="noindent"><span class="paragraphHead"><a id="x1-1000"></a><span class="ecbx-1000">1 Objective</span></span>
+<!--l. 37--></p><p class="indent">   In this lab, we will go through convolutional neural network (CNN) to distinguish
+rock cracks in a image.
+                                                                  
+
+                                                                  
+<!--l. 41--></p><p class="noindent"><span class="paragraphHead"><a id="x1-2000"></a><span class="ecbx-1000">2 Prerequisties</span></span>
+     </p><ul class="itemize1">
+     <li class="itemize"><span class="ecbx-1000">Matlab</span></li></ul>
+<!--l. 48--><p class="noindent"><span class="paragraphHead"><a id="x1-3000"></a><span class="ecbx-1000">3 How to use the CNN lab</span></span>
+<!--l. 51--></p><p class="indent">   Download the codes <a href="http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.CNN/Chapter.CNNCrack/CNN_lab.zip">./CNN_lab.zip</a> and unzip it. Change your Matlab working
+directory under this file so you may able to use all necessary sub-functions. The main
+function is function test_example_CNN.m, open it in the matlab script and run.
+<!--l. 55-->
+   </p><div class="lstlisting" id="listing-1"><span class="label"><a id="x1-3001r1"></a></span>test_example_CNN
+   
+   </div>
+<!--l. 61--><p class="noindent"><span class="paragraphHead"><a id="x1-4000"></a><span class="ecbx-1000">4 Procedure of CNN</span></span>
+<!--l. 63--></p><p class="indent">
+     </p><ol class="enumerate1">
+     <li class="enumerate" id="x1-4002x1">Build training sets. Pick 200 crack image in the image and labeled as 1
+     and then pick 200 non-crack image in the image and labled as 0.
+     </li>
+     <li class="enumerate" id="x1-4004x2">Convert the image into image patches.
+     </li>
+     <li class="enumerate" id="x1-4006x3">Use CNN algorithms to estimate a optimal set of weights and bias.
+     </li>
+     <li class="enumerate" id="x1-4008x4">Input  all  the  image  patches  into  the  trained  CNN  model  to  do
+     classification.</li></ol>
+<!--l. 73--><p class="noindent"><span class="paragraphHead"><a id="x1-5000"></a><span class="ecbx-1000">5 Convolutional Neural Network</span></span>
+<!--l. 76--></p><p class="indent">   The misfit function of the convolutional neural network is:
+                                                                  
+
+                                                                  
+   </p><center class="par-math-display">
+<img src="./Identifying Rock Crack by Convolutional Neural Network_files/CNN_lab0x.png" alt="J(w,b) = 1-∑  (y(x )- a)2
+         2n  x
+" class="par-math-display"></center>
+<!--l. 80--><p class="nopar">
+<!--l. 82--></p><p class="indent">   where <span class="cmmi-10">w </span>is the set of all weights and <span class="cmmi-10">b </span>the set of all biases, <span class="cmmi-10">n </span>is the number of
+training inputs, <span class="cmmi-10">x </span>is the set of all training inputs, <span class="cmmi-10">y</span><span class="cmr-10">(</span><span class="cmmi-10">x</span><span class="cmr-10">) </span>is the expected output of the
+network for input <span class="cmmi-10">x</span>, and <span class="cmmi-10">a </span>is the actual output of the network for input <span class="cmmi-10">x</span>, with
+respect to <span class="cmmi-10">w </span>and <span class="cmmi-10">b</span>. The architecture of the convolutional neural network is shown in
+Figure 2.
+</p><div class="center">
+<!--l. 88--><p class="noindent">
+
+<!--l. 89--></p><p class="noindent"><img src="./Identifying Rock Crack by Convolutional Neural Network_files/3_Users_fengshihang_Downloads_ppps_html_CNN_structure.png" alt="PIC">
+</p></div>
+<div class="center">
+<!--l. 92--><p class="noindent">
+<!--l. 93--></p><p class="noindent">Figure 2: The convolutional neural network architecture with two
+convolutional layer and a fully connected layer.
+</p></div>
+<!--l. 98--><p class="noindent"><span class="paragraphHead"><a id="x1-6000"></a><span class="ecbx-1000">6 Questions</span></span>
+<!--l. 100--></p><p class="noindent">
+     </p><ol class="enumerate1">
+     <li class="enumerate" id="x1-6002x1">Pick the training set manually by yourself. You can focus on big crack
+     only or small crack only. See how the result will be looks like.
+     </li>
+     <li class="enumerate" id="x1-6004x2">Modify the structure of CNN. See how the CNN parameter will change
+     the result.
+     </li>
+     <li class="enumerate" id="x1-6006x3">Increase the iteration number to 100. How the result will change? Why?
+     Is there anyway to prevent this problem.
+     </li>
+     <li class="enumerate" id="x1-6008x4">Try to do multi-class classification using this code. Such as background,
+     crack class 1 and crack class 2.</li></ol>
+                                                                  
+
+                                                                  
+<!--l. 112--><p class="noindent"><span class="paragraphHead"><a id="x1-7000"></a><span class="ecbx-1000">7 PS</span></span>
+<!--l. 115--></p><p class="indent">   The lab requires lots of memory, if you have memory problem, please contact me.
+And if there are any errors in this Lab, please contact: shihang.feng@kaust.edu.sa
+ 
+ 
+
+                                                                  
+
+
+</p></body></html>
