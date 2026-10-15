@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Identifying Rock Crack by Convolutional Neural Network</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="CNN_lab.tex"> 
+<meta name="date" content="2018-10-30 14:45:00"> 
+<link rel="stylesheet" type="text/css" href="RNN_lab.css"> 
+</head><body 
+>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">Blind Deconvolution by Vanilla Recurrent Neural
+Network</h2>
+<div class="author" ></div><br />
+<div class="date" ><span 
+class="ecrm-1200">November 24th, 2019</span></div>
+   </div>
+<div class="center" 
+>
+<!--l. 20--><p class="noindent" >
+<!--l. 21--><p class="noindent" >by Shihang Feng
+</div>
+<div class="center" 
+>
+<!--l. 24--><p class="noindent" >
+<!--l. 25--><p class="noindent" ><img 
+src="RNN_test.png" alt="PIC"  
+>
+</div>
+<div class="center" 
+>
+<!--l. 28--><p class="noindent" >
+<!--l. 29-->
+<p class="noindent" >Figure 1: (a) Input seismogram, (b) true and predict reflectivity by VRNN.
+</div>
+<!--l. 34--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-1000"></a><span 
+class="ecbx-1000">1 Objective</span></span>
+<!--l. 37-->
+<p class="indent" >   In this lab, we will go through vanilla recurrent neural network (VRNN) to blind deconvolution.
+                                                                  
+
+                                                                  
+<!--l. 41--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-2000"></a><span 
+class="ecbx-1000">2 Prerequisties</span></span>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ecbx-1000">Matlab with Neural Network Toolbox</span></li></ul>
+<!--l. 48-->
+<p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-3000"></a><span 
+class="ecbx-1000">3 How to use the RNN lab</span></span>
+<!--l. 51-->
+<p class="indent" >   Download the codes <a 
+href="RNN_lab.zip" >./RNN_lab.zip</a> and unzip it. Change your Matlab working
+directory under this file so you may able to use all necessary sub-functions. The main
+function is function RNN_deconv.m, open it in the matlab script and run.
+<!--l. 55-->
+   <div class="lstlisting" id="listing-1"><span class="label"><a 
+ id="x1-3001r1"></a></span>RNN_deconv
+   
+   </div>
+<!--l. 61-->
+<p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-4000"></a><span 
+class="ecbx-1000">4 Procedure of RNN</span></span>
+<!--l. 63--><p class="indent" >
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-4002x1">Build training sets. Build a 1D reflectivity model and convolve a ricker wavelet with it to simulate a seismogram.
+     </li>
+     <li 
+  class="enumerate" id="x1-4006x3">Use the seismogram as input and reflectivity model as output. Use RNN algorithms to estimate a optimal set of weights and bias.
+     </li>
+     <li 
+  class="enumerate" id="x1-4008x4">Use another simulated seismogram to test the performance of the RNN network.</li></ol>
+<!--l. 73-->
+<p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-5000"></a><span 
+class="ecbx-1000">5 Recurrent Neural Network</span></span><p class="indent" >
+<center class="par-math-display" >
+</center>
+<!--l. 80--><p class="nopar" >
+<!--l. 82-->
+<p class="indent" >
+<div class="center" 
+>
+<!--l. 88--><p class="noindent" >
+
+<!--l. 89--><p class="noindent" ><img 
+src="RNN_structure.png" alt="PIC"  
+>
+</div>
+<div class="center" 
+>
+<!--l. 92--><p class="noindent" >
+<!--l. 93-->
+<p class="noindent" >Figure 2: The structure of the recurrent neural network.</div>
+<!--l. 98--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-6000"></a><span 
+class="ecbx-1000">6 Questions</span></span>
+<!--l. 100--><p class="noindent" >
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-6002x1">Use the reflectvity as the input data and the seismogram as the output, which means using RNN to mimic convolution. How does the result looks like? Why is that? </li>
+     <li 
+  class="enumerate" id="x1-6004x2">Modify the structure and the parameters of RNN. See how the RNN parameter will change
+     the result.</li>
+     <li 
+  class="enumerate" id="x1-6008x4">This lab uses the conventional RNN without gate. If you are interested in LSTM, a binary caculator trained by LSIM is in <a 
+href="RNN_binary_lstm.m" >./RNN_binary_lstm.m</a></li>
+     </ol>
+                                                                  
+
+                                                                  
+<!--l. 112--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-7000"></a><span 
+class="ecbx-1000">7 PS</span></span>
+<!--l. 115-->
+<p class="indent" >If there are any errors in this lab, please contact: shihang.feng@kaust.edu.sa
+  
+</body></html> 
+
+                                                                  
+
+
