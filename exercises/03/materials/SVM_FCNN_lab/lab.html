@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0065)http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/lab.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="generator" content="http://www.nongnu.org/elyxer/">
+<meta name="create-date" content="2018-10-28">
+<link rel="stylesheet" href="./Identifying Migration Arifacts and Reflectors by Machine Learning Methods_files/lyx.css" type="text/css" media="all">
+<title>Identifying Migration Arifacts and Reflectors by Machine Learning Methods</title>
+</head>
+<body>
+<div id="globalWrapper">
+<h1 class="title">
+Identifying Migration Arifacts and Reflectors by Machine Learning Methods
+</h1>
+<div class="Unindented">
+<div class="center">
+by Yuqing Chen
+</div>
+
+</div>
+<div class="Indented">
+<div class="center">
+<img class="embedded" src="./Identifying Migration Arifacts and Reflectors by Machine Learning Methods_files/combo1-eps-converted-to-1.png" alt="figure combo1-eps-converted-to-1.png" style="width: 594px; max-width: 1189px; height: 468px; max-height: 937px;">
+
+</div>
+
+</div>
+<div class="Indented">
+<div class="float">
+<a class="Label" name="Figure-1"> </a><div class="figure">
+<div class="caption">
+Figure 1 (a) Migration image of a three layer model with some artifacts which caused by sparse geometry, (b) classifiction results of training set and (c) classification results of all imaging points in the migration image.
+</div>
+
+</div>
+
+</div>
+<div class="bigskip"> </div>
+</div>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-1"></a>0 Objective
+</div>
+<div class="Unindented">
+In this lab, the support vector machine (SVM), neural network (NN), and logistic regression algorithms are used to distinguish artifacts and reflectors point in a migration image.<div class="smallskip"> </div>
+</div>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-2"></a>1 Reading Materials
+</div>
+<div class="Unindented">
+SVM chapter <a class="URL" href="http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/chsingle.lean.pdf">chsingle.lean.pdf</a> and ppts <a class="URL" href="http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/Lec2b.ML.SVM.pptx">Lec2b.ML.SVM.pptx</a>, <a class="URL" href="http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/svm_class_ppt1.pptx">svm_class_ppt1.pptx</a>.<div class="medskip"> </div>
+</div>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-3"></a>2 Prerequisties
+</div>
+<ul>
+<li>
+<b>Matlab<div class="smallskip"> </div></b>
+</li>
+
+</ul>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-4"></a>3 Procedure of Machine Learning:
+</div>
+<ol>
+<li>
+Find features with dimension N. In our case, we choose the coherency, dipping angle and amplitude as our features, so N = 3.
+</li>
+<li>
+Build training sets. Manually pick 50 artifact points in the image and labeled as 0, then manually pick 30 reflector points in the image and labeled as 1.
+</li>
+<li>
+Use machine learning algorithms to estimate an optimal N-1 dimension boundary which separates the training set. In our case, the boundary is a 2D surface.
+</li>
+<li>
+Input the rest of points in the image into the trained model to do classification.<div class="smallskip"> </div>
+</li>
+
+</ol>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-5"></a>4 How to Use the Lab
+</div>
+<div class="Unindented">
+Download the codes <a class="URL" href="http://utam.gg.utah.edu/Classes/ML/LAB1/Chapter.Book.SVM/Comparision.zip">Comparision.zip</a> and unzip it. Change your Matlab working directory under this file so you may able to use all necessary sub-functions. The main function is “compare_main.m”, open it in the Matlab script and click “run”. The comments in the code can help you understand the code. 
+</div>
+<ol>
+<li>
+The function costFunction2.m and nnCostFunction.m are used to compute the gradient and misfit of the logistic regression and neural network, respectively. For the SVM, the function svmTrain.m is used to train the model parameters. This function is in courtesy of Prof. Andrew Ng from his Machine Learning course from Coursera (https://www.coursera.org/learn/machine-learning/home/week/7).
+</li>
+<li>
+Load the migration image and corresponding 3 features: “cohe”, “angl” and “engy” represent the coherency, dipping angle and the amplitude, respectively.
+</li>
+<li>
+As different features have the different unit, we rescale them into the range between -1 to 1.
+</li>
+<li>
+Manually pick 50 artifact points in the image and labeled as 0, then manually pick 30 reflector points in the image and labeled as 1 to build the training set.
+</li>
+<li>
+Randomly initialize the initial model parameter and then compute the gradient and update the model parameter by Steepest descent method.<div class="smallskip"> </div>
+</li>
+
+</ol>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-6"></a>5 Support Vector Machine
+</div>
+<div class="Unindented">
+The theory of support vector machine (SVM) is different compared to the logistic regression and neural network. SVM separates different class of data with a clear gap that is as wide as possible.
+</div>
+<div class="Indented">
+<div class="formula">
+min<sub><i>θ</i>, <i>b</i></sub><i>d</i> = <span class="fraction"><span class="ignored">(</span><span class="numerator">1</span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span><i>θ</i><sup><i>T</i></sup><i>θ</i>
+</div>
+
+</div>
+<div class="Indented">
+subject to 
+</div>
+<div class="Indented">
+<div class="formula">
+<i>y</i><sup>(<i>i</i>)</sup>(<i>θ</i><sup><i>T</i></sup><i>x</i><sup>(<i>i</i>)</sup> + <i>b</i>) ≥ 1
+</div>
+where the parameter θ and the interception term b controls a boundary that separates different class of data. This equation can be transformed into a dual problem to solve for the optimal θ and b.<div class="smallskip"> </div>
+</div>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-7"></a>6 Questions
+</div>
+<ol>
+<li>
+Try to train the model with an unbalanced training set. For examples, we have 50 artifacts points and 3 reflector points in the training set.
+</li>
+<li>
+Modify the program as follows: (1) For each image point in the migration image, open a local window with size of winx by winz around this image point. (2) Unroll this local image to the size of 1 by winx*winz and saved as one example in the training set. so in this case, the dimension of input features are winx by winz).
+</li>
+<li>
+Train the model and compare the predicted classes to the actual classes.<div class="smallskip"> </div>
+</li>
+
+</ol>
+<div class="Paragraph">
+<a class="toc" name="toc-Paragraph-8"></a>6 PS
+</div>
+<div class="Unindented">
+Please let me know if there are any errors in this Lab, please contact: yuqing.chen@kaust.edu.sa
+</div>
+<div class="Indented">
+Regards, 
+</div>
+<div class="Indented">
+Yuqing Chen
+</div>
+
+</div>
+
+
+</body></html>
