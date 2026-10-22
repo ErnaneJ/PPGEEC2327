@@ -1,0 +1,17 @@
+\section{Conclusão}
+
+\begin{frame}{Limitações e trabalhos futuros}
+	\begin{itemize}
+		\item Dois otimizadores Adam (rede siamesa e modelo de velocidade) precisam de taxas de aprendizado bem coordenadas entre si.
+		\item Sem camada de \textit{pooling}, o tamanho espacial é preservado em toda a rede: em dados de campo de grande dimensão, isso aumenta o custo de memória e processamento.
+		\item A rede siamesa aprendida em um conjunto de dados não transfere bem para outro: \textit{transfer learning} direto do Overthrust para o Marmousi2 piora o resultado (SNR cai de 22,57 para 20,27 dB).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusão}
+	\begin{itemize}
+		\item O SiameseFWI usa uma rede siamesa \textit{self-supervised}, treinada durante o próprio FWI, para comparar dado observado e simulado em um espaço latente.
+		\item Supera FWI com perdas convencionais (correlação cruzada, Wasserstein) e o FWIGAN, tanto em modelos sintéticos quanto em dado de campo real.
+		\item Alcança esse ganho com apenas 10\%--20\% de custo computacional extra, e se mantém robusto a ruído e a modelo inicial impreciso.
+	\end{itemize}
+\end{frame}

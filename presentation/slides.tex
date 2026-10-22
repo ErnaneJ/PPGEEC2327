@@ -1,0 +1,98 @@
+%--------------------------------------------%
+% Template Beamer para Apresentações da UFRN %
+% by alcemygvseverino@gmail.com              %
+% Baseado em MIT Beamer Template			 %
+% versao 1.1								 %
+% Atualizado em 14/05/2016					 %
+%--------------------------------------------%
+\documentclass[handout,t]{beamer}
+% Para alterar a linguagem do documento
+\usepackage[portuges]{babel}
+% Para aceitar caracteres especias deretamente do teclado
+\usepackage[utf8]{inputenc}
+% Para seguir as normas da ABNT de citacao e referencias
+\usepackage[alf]{abntex2cite}
+% Para incluir figuras
+\usepackage{graphicx}
+% Para melhor ajuste da posisao das figuras
+\usepackage{float}
+% Para ajustar as dimensoes do layout da pagina
+\usepackage{geometry}
+% Para formatar estrutura e informacoes de formulas matematicas
+\usepackage{amsmath}
+% Para incluir simbolos especiais em formulas matematicas
+\usepackage{amssymb}
+% Para incluir links nas referencias
+\usepackage{url}
+% Para incluir paginas de documentos .pdf externos
+\usepackage{pgfpages}
+% Para ajustar o estilo dos contadores
+\usepackage{enumerate}
+% Para modificar a cor do texto
+\usepackage{color}
+% Para incluir condicoes
+\usepackage{ifthen}
+% Para colocar legendas em algo que nao e float
+\usepackage{capt-of}
+% Para definir o tema do slide
+\usetheme{Berlin}
+% Para difinir cores e background
+\usecolortheme{ufrn}
+% Para numerar as figuras
+\setbeamertemplate{caption}[numbered]
+% Para remover o icone padrao antes das referencias
+\setbeamertemplate{bibliography item}[text]
+
+% Título
+\title[SiameseFWI]{
+	SiameseFWI: rede neural siamesa para inversão de forma de onda completa}
+% Data
+\date{
+	Outubro de 2026}
+% Autores
+\author[Rocha Junior \& Vilar Neto]{
+	Ernane Ferreira Rocha Junior \inst{1}\\
+	\vspace{0.25cm}
+	Pedro Rêgo Vilar Neto \inst{1}}
+% Instituto
+\institute[PPGEEC/UFRN]{
+	\inst{1}%
+	Programa de Pós-Graduação em Engenharia Elétrica e de Computação (PPGEEC)\\
+	Universidade Federal do Rio Grande do Norte (UFRN)}
+% Logo do canto inferior direito
+\pgfdeclareimage[height=0.8cm]{logo_ufrn}{figuras/logo_ufrn}
+\pgfdeclareimage[height=0.8cm]{logo_lapps}{figuras/logo_lapps}
+\pgfdeclareimage[height=0.8cm]{logo_imd}{figuras/logo_imd}
+\logo{
+	\vspace*{-0.15cm}
+	\pgfuseimage{logo_ufrn}
+	\pgfuseimage{logo_lapps}
+    \pgfuseimage{logo_imd}
+	\hspace*{-0.05cm}
+    }
+
+
+\begin{document}
+% Sumário
+\frame{\titlepage}
+\section[]{}
+\begin{frame}{Sumário}
+	\tableofcontents
+\end{frame}
+
+% Introducao
+\include{tex/introducao/introducao}
+
+% Metodologia
+\include{tex/metodologia/metodologia}
+
+% Resultados
+\include{tex/resultados/resultados}
+
+% Conclusao
+\include{tex/conclusao/conclusao}
+
+% Referencias
+\include{tex/referencias/referencias}
+
+\end{document}

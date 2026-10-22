@@ -1,0 +1,18 @@
+\section{Introdução}
+
+\begin{frame}{O problema: inversão de forma de onda completa}
+	\begin{itemize}
+		\item \textbf{FWI} (\textit{Full Waveform Inversion}) estima o modelo de velocidade da subsuperfície a partir de dados sísmicos registrados na superfície.
+		\item A cada iteração, compara-se o dado simulado com o dado observado e atualiza-se o modelo de velocidade para reduzir essa diferença.
+		\item A qualidade da inversão depende fortemente de como essa diferença (função de \textit{misfit}) é medida.
+		\item O critério mais comum, a norma $L_2$ ponto a ponto, é sensível a diferenças de fase e leva a mínimos locais (\textit{cycle-skipping}).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivação do SiameseFWI}
+	\begin{itemize}
+		\item Trabalhos anteriores propõem funções de \textit{misfit} alternativas: distância de Wasserstein, correlação cruzada, redes adversárias (FWIGAN), redes pré-treinadas por meta-aprendizagem (ML-misfit).
+		\item Essas abordagens ou exigem dados rotulados, ou adicionam custo computacional alto, ou dependem de um treinamento prévio em muitos modelos de velocidade.
+		\item \citeonline{saad2024} propõem o \textbf{SiameseFWI}: uma rede neural siamesa, treinada de forma \textit{self-supervised} durante o próprio processo de FWI, com baixo custo computacional adicional.
+	\end{itemize}
+\end{frame}
