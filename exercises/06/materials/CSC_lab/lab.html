@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html>
+<head>
+<title>Convolutional Sparse Coding for Noise Attenuation of Seismic Data</title>
+<meta name="description" content="Convolutional sparse Coding for Noise attenuation of seismic Data">
+<meta name="keywords" content="lab">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta name="Generator" content="LaTeX2HTML v2008">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="wd3d.css">
+
+</head>
+
+<body >
+<a name="firstpage"></a>
+
+<p>
+<h1 align=CENTER>Convolutional Sparse Coding for Noise Attenuation of Seismic Data</h1>
+<p align=CENTER><strong>Zhaolun Liu<a name="footfnm1"
+ href="#fnm1"><sup><span class="Alph"><IMG
+ WIDTH="7" HEIGHT="6" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="% latex2html id marker 562
+\setcounter{footnote}{1}\fnsymbol{footnote}"></span></sup></a></strong>
+<br><i> 
+	  <a name="tex2html1"
+  href="#footfnm1"><sup><span class="Alph"><IMG
+ WIDTH="7" HEIGHT="6" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="% latex2html id marker 563
+\setcounter{footnote}{1}\fnsymbol{footnote}"></span></sup></a>KAUST, zhaolun.liu@kaust.edu.sa </i>
+</p>
+<hr>
+ 
+<div align="CENTER"><a name="fig:fig1"></a><a name="87"></a>
+<table>
+<tr><td>
+<div align="CENTER">
+
+</div> 
+  <IMG
+  WIDTH=500" HEIGHT="400" ALIGN="BOTTOM" BORDER="0"
+ SRC="./training.png"
+ ALT="Image training"></td>
+<td>
+<div align="CENTER">
+
+</div> 
+  <IMG
+  WIDTH="500" HEIGHT="400" ALIGN="BOTTOM" BORDER="0"
+ SRC="./denoise_phase.png"
+ ALT="Image denoise_phase"></td>
+</tr>
+<tr>
+	<td> <div align="CENTER"> <strong> Figure 1: </strong>Training phase </div> </td>
+	<td> <div align="CENTER"> <strong>Figure 2: </strong> Denoising phase</div> </td>
+</tr>
+</table>
+</div>
+
+<p>
+
+<h1><a name="SECTION00010000000000000000">
+<span class="arabic">1</span> Objective</a>
+</h1> 
+To learn how to use convolutional sparse coding to attenuate the noise in seismic data. 
+
+<h1><a name="SECTION00020000000000000000">
+<span class="arabic">2</span> Reading Materials</a>
+</h1> 
+Please read the <a href="CSCdenoising.pdf">SEG Beijing abstract</a> and <a href="csc.pptx">PPT</a> for theory of seismic  
+denoising. 
+
+<h1><a name="SECTION00030000000000000000">
+<span class="arabic">3</span> Prerequisites</a>
+</h1> 
+MATLAB 
+
+<h1><a name="SECTION00040000000000000000">
+<span class="arabic">4</span> Theory</a>
+</h1> 
+The convolutional sparse coding (CSC) problem  can be defined as finding   
+the optimal <!-- MATH
+ ${ \bf {d}}$
+ -->
+<span class="MATH"><IMG
+ WIDTH="15" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$ { \bf {d}}$"></span> and <!-- MATH
+ ${ \bf {z}}$
+ -->
+<span class="MATH"><IMG
+ WIDTH="13" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="$ { \bf {z}}$"></span> that minimize the following objective function:  
+<p></p>
+<div align="CENTER" class="mathdisplay"><a name="eqn:basicUnconstrain"></a><!-- MATH
+ \begin{equation}
+\argmin_{{ \bf {d}},{ \bf {z}}} \frac{1}{2}\lVert { \bf {x}}-\sum_{k=1}^K { \bf {d}}_k*{ \bf {z}}_k\rVert_2^2+
+  \beta\sum_{k=1}^K\lVert{ \bf {z}}_k\rVert_1, 
+ 
+\end{equation}
+ -->
+<table class="equation" cellpadding="0" width="100%" align="CENTER">
+<tr valign="MIDDLE">
+<td nowrap ALIGN="CENTER"><span class="MATH"><IMG
+ WIDTH="296" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$\displaystyle \argmin_{{ \bf {d}},{ \bf {z}}} \frac{1}{2}\lVert { \bf {x}}-\sum...
+...f {d}}_k*{ \bf {z}}_k\rVert_2^2+   \beta\sum_{k=1}^K\lVert{ \bf {z}}_k\rVert_1,$"></span></td>
+<td nowrap CLASS="eqno" width="10" align="RIGHT">
+(<span class="arabic">1</span>)</td></tr>
+</table></div>
+<br clear="ALL"><p></p>
+where <!-- MATH
+ ${ \bf {x}}$
+ -->
+<span class="MATH"><IMG
+ WIDTH="14" HEIGHT="13" ALIGN="BOTTOM" BORDER="0"
+ SRC="img6.png"
+ ALT="$ { \bf {x}}$"></span> is an <span class="MATH"><IMG
+ WIDTH="48" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.png"
+ ALT="$ m\times n$"></span> image in vector form, <!-- MATH
+ ${ \bf {d}}_k$
+ -->
+<span class="MATH"><IMG
+ WIDTH="23" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$ { \bf {d}}_k$"></span> refers to the <span class="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="$ k$"></span>-th  
+<span class="MATH"><IMG
+ WIDTH="41" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$ d\times d$"></span> filter in vector form, <!-- MATH
+ ${ \bf {z}}_k$
+ -->
+<span class="MATH"><IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$ { \bf {z}}_k$"></span> is vector of  
+ sparse coefficients with size <!-- MATH
+ $(m+d-1)\times(n+d-1)$
+ -->
+<span class="MATH"><IMG
+ WIDTH="183" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$ (m+d-1)\times(n+d-1)$"></span>,   
+ <span class="MATH"><IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.png"
+ ALT="$ \beta$"></span> controls  
+the <span class="MATH"><IMG
+ WIDTH="16" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$ l_1$"></span> penalty, and <span class="MATH"><IMG
+ WIDTH="12" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img15.png"
+ ALT="$ *$"></span> denotes the 2D convolution operator.
+
+<p>
+The noise attenuation method by CSC can be divided into the 
+training phase and the denoising phase. The seismic data 
+with a relatively high signal-to-noise ratio are chosen for 
+training to get the learned basis functions. Then we use all 
+(or a subset) of the basis functions to attenuate the random 
+or coherent noise in the seismic data. 
+
+<h1><a name="SECTION00050000000000000000">
+<span class="arabic">5</span> Procedure</a>
+</h1>
+
+<ul>
+	<li>Download the <a href="csc_code.zip">codes</a> and unzip it. 
+</li>
+<li>Change your Matlab working directory. 
+</li>
+<li>Type "training_phase" to do the training phase. The learned filters will be saved as "filters.mat".
+   The result is shown in 
+   Figure&nbsp;<a href="#fig:fig1">1</a>. 
+</li>
+<li>Type "denoise" to do the denoise phase. It will load "filters.mat" and do denoising.
+	The result is shown in 
+	Figure&nbsp;<a href="#fig:fig1">2</a>. 
+</li>
+</ul>
+<h1><a name="SECTION00060000000000000000">
+<span class="arabic">6</span> Exercise</a>
+</h1>
+
+<ul>
+<li>Play with the parameters: a) the size and the number of the filter in the training phase, b) the coefficient of l1 norm <span class="MATH"><IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.png"
+ ALT="$ \beta$"></span> in the denoising phase 
+	to see how the denoising results are going to change. 
+</li>
+<li>Compare the filters of CSC to those of the first layer of CNN.  What's the similarity and difference between them? 
+</li>
+</ul>
+
+<br><hr>
+<address>
+Zhaolun Liu
+2018-10-29
+</address>
+</body>
+</html>
