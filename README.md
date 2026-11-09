@@ -13,3 +13,4 @@ in Geoscience*, SEG.
 | 03 | FCNN vs SVM (RBF) for migration noise filtering (Ch. 5, 7) | Delivered (`exercises/03/exercise_3.ipynb`) |
 | 04 | Rock crack detection with a CNN (Ch. 8-9) | Delivered (`exercises/04/exercise_4.ipynb`) |
 | 05 | Seismic deconvolution with an RNN (Ch. 12) | Delivered (`exercises/05/exercise_5.ipynb`) |
+| 06 | Seismic noise attenuation with convolutional sparse coding (Ch. 15) | Delivered (`exercises/06/exercise_6.ipynb`) |
